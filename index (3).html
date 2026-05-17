@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B&B Beauty — Fragrance & Haircare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #F5F0E8;
+    --warm-white: #FAF8F4;
+    --stone: #C8BFB0;
+    --taupe: #9E9183;
+    --mink: #6B5F52;
+    --espresso: #2C2420;
+    --gold: #B8976A;
+    --gold-light: #D4B896;
+    --blush: #E8DDD4;
+    --sage: #A8AC98;
+    --charcoal: #3A3530;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--warm-white);
+    color: var(--espresso);
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--stone); border-radius: 3px; }
+
+  /* ── ANNOUNCEMENT BAR ── */
+  .announcement {
+    background: var(--espresso);
+    color: var(--gold-light);
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+  }
+
+  /* ── NAVIGATION ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(250, 248, 244, 0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--stone);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--mink);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 400;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover { color: var(--espresso); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* ── LOGO ── */
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+
+  .logo-svg {
+    width: 52px;
+    height: 52px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--espresso);
+    letter-spacing: 0.06em;
+  }
+
+  .logo-tagline {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    font-weight: 400;
+    margin-top: 3px;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .nav-icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--mink);
+    display: flex;
+    align-items: center;
+    transition: color 0.3s;
+    position: relative;
+  }
+
+  .nav-icon-btn:hover { color: var(--espresso); }
+
+  .cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: var(--gold);
+    color: white;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    height: 90vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(184,151,106,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(168,172,152,0.15) 0%, transparent 60%),
+      linear-gradient(135deg, var(--cream) 0%, var(--blush) 100%);
+  }
+
+  .hero-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: repeating-linear-gradient(
+      45deg,
+      var(--espresso) 0,
+      var(--espresso) 1px,
+      transparent 0,
+      transparent 50%
+    );
+    background-size: 20px 20px;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    padding: 0 80px;
+    animation: fadeUp 1.2s ease both;
+  }
+
+  .hero-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 400;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 90px);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--espresso);
+    margin-bottom: 28px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--mink);
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--taupe);
+    max-width: 440px;
+    margin-bottom: 44px;
+    font-weight: 300;
+  }
+
+  .hero-btns {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    background: var(--espresso);
+    color: var(--gold-light);
+    padding: 16px 40px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-primary:hover {
+    background: var(--charcoal);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--espresso);
+    padding: 15px 40px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: 'Jost', sans-serif;
+    font-weight: 400;
+    border: 1px solid var(--stone);
+    cursor: pointer;
+    transition: all 0.3s;
+    display: inline-block;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--espresso);
+    background: var(--espresso);
+    color: var(--cream);
+  }
+
+  /* Hero floating elements */
+  .hero-floats {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    pointer-events: none;
+  }
+
+  .float-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(184,151,106,0.15), rgba(200,191,176,0.2));
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .float-circle:nth-child(1) { width: 420px; height: 420px; top: 10%; right: 5%; animation-delay: 0s; }
+  .float-circle:nth-child(2) { width: 260px; height: 260px; bottom: 15%; right: 30%; animation-delay: -3s; background: linear-gradient(135deg, rgba(168,172,152,0.2), rgba(232,221,212,0.3)); }
+  .float-circle:nth-child(3) { width: 120px; height: 120px; top: 20%; right: 40%; animation-delay: -5s; }
+
+  .hero-product-shelf {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    animation: fadeIn 1.8s ease both 0.4s;
+  }
+
+  .hero-bottle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .hero-bottle:nth-child(2) { animation-delay: -2s; }
+  .hero-bottle:nth-child(3) { animation-delay: -4s; }
+
+  .hero-bottle-label {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    text-align: center;
+  }
+
+  /* ── MARQUEE ── */
+  .marquee-section {
+    background: var(--espresso);
+    padding: 18px 0;
+    overflow: hidden;
+  }
+
+  .marquee-track {
+    display: flex;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 0 40px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--stone);
+    font-weight: 300;
+  }
+
+  .marquee-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+
+  /* ── SECTIONS SHARED ── */
+  .section { padding: 100px 80px; }
+  .section-sm { padding: 60px 80px; }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 4vw, 58px);
+    font-weight: 300;
+    color: var(--espresso);
+    line-height: 1.1;
+  }
+
+  .section-title em { font-style: italic; color: var(--mink); }
+
+  .section-sub {
+    font-size: 14px;
+    color: var(--taupe);
+    margin-top: 16px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CATEGORY SPLIT ── */
+  .category-split {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    padding: 0;
+  }
+
+  .category-card {
+    position: relative;
+    height: 520px;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+
+  .category-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+
+  .category-card:hover .category-bg { transform: scale(1.04); }
+
+  .category-men .category-bg {
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(44,36,32,0.6) 0%, transparent 60%),
+      linear-gradient(160deg, #3A3530 0%, #6B5F52 40%, #9E9183 100%);
+  }
+
+  .category-women .category-bg {
+    background:
+      radial-gradient(ellipse at 70% 40%, rgba(184,151,106,0.4) 0%, transparent 60%),
+      linear-gradient(160deg, #E8DDD4 0%, #C8BFB0 40%, #9E9183 80%, #6B5F52 100%);
+  }
+
+  .cat-bottles {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 40px;
+    opacity: 0.9;
+  }
+
+  .category-overlay {
+    position: relative;
+    z-index: 2;
+    padding: 40px;
+    background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%);
+  }
+
+  .category-men .category-overlay { background: linear-gradient(to top, rgba(30,24,20,0.75) 0%, transparent 60%); }
+  .category-women .category-overlay { background: linear-gradient(to top, rgba(60,50,44,0.6) 0%, transparent 60%); }
+
+  .cat-tag {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+
+  .category-men .cat-tag { color: var(--gold-light); }
+  .category-women .cat-tag { color: var(--gold-light); }
+
+  .cat-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .category-men .cat-title { color: #F5F0E8; }
+  .category-women .cat-title { color: #F5F0E8; }
+
+  .cat-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: 400;
+    transition: gap 0.3s;
+  }
+
+  .category-men .cat-cta { color: var(--gold-light); }
+  .category-women .cat-cta { color: var(--gold-light); }
+
+  .category-card:hover .cat-cta { gap: 18px; }
+
+  /* ── PRODUCT GRID ── */
+  .products-section { background: var(--warm-white); }
+
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 14px 36px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--taupe);
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.3s;
+  }
+
+  .tab-btn.active {
+    color: var(--espresso);
+    border-bottom-color: var(--gold);
+  }
+
+  .tab-btn:hover { color: var(--espresso); }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+
+  .product-card {
+    position: relative;
+    group: true;
+    cursor: pointer;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .product-card:nth-child(2) { animation-delay: 0.1s; }
+  .product-card:nth-child(3) { animation-delay: 0.2s; }
+  .product-card:nth-child(4) { animation-delay: 0.3s; }
+
+  .product-img-wrap {
+    position: relative;
+    overflow: hidden;
+    background: var(--cream);
+    aspect-ratio: 3/4;
+    margin-bottom: 18px;
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    z-index: 2;
+    background: var(--espresso);
+    color: var(--gold-light);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    font-weight: 400;
+  }
+
+  .product-badge.new { background: var(--sage); color: white; }
+  .product-badge.sale { background: var(--mink); }
+
+  .product-visual {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+
+  .product-card:hover .product-visual { transform: scale(1.05); }
+
+  .product-actions {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: linear-gradient(to top, rgba(44,36,32,0.9) 0%, transparent 100%);
+    transform: translateY(100%);
+    transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+    display: flex;
+    gap: 8px;
+  }
+
+  .product-card:hover .product-actions { transform: translateY(0); }
+
+  .add-btn {
+    flex: 1;
+    background: var(--gold);
+    color: white;
+    border: none;
+    padding: 12px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 400;
+    transition: background 0.3s;
+  }
+
+  .add-btn:hover { background: var(--mink); }
+
+  .wish-btn {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: white;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+  }
+
+  .wish-btn:hover { background: rgba(255,255,255,0.25); }
+
+  .product-info { padding: 0 4px; }
+
+  .product-brand {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--espresso);
+    margin-bottom: 6px;
+    line-height: 1.2;
+  }
+
+  .product-sub {
+    font-size: 12px;
+    color: var(--taupe);
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+
+  .product-price {
+    font-size: 16px;
+    color: var(--espresso);
+    font-weight: 400;
+  }
+
+  .product-price .old {
+    font-size: 13px;
+    color: var(--stone);
+    text-decoration: line-through;
+    margin-left: 8px;
+  }
+
+  /* ── SVG BOTTLES ── */
+
+  /* ── FEATURE STRIP ── */
+  .feature-strip {
+    background: var(--cream);
+    padding: 60px 80px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    border-top: 1px solid var(--stone);
+    border-bottom: 1px solid var(--stone);
+  }
+
+  .feature-item {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 16px;
+    color: var(--gold);
+  }
+
+  .feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    font-weight: 400;
+    color: var(--espresso);
+    margin-bottom: 8px;
+  }
+
+  .feature-desc {
+    font-size: 12px;
+    color: var(--taupe);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  /* ── BRAND STORY ── */
+  .story-section {
+    background: var(--espresso);
+    padding: 100px 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .story-visual {
+    position: relative;
+  }
+
+  .story-frame {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: linear-gradient(145deg, #3A3530, #6B5F52);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .story-frame::before {
+    content: '';
+    position: absolute;
+    inset: 16px;
+    border: 1px solid rgba(184,151,106,0.3);
+    pointer-events: none;
+  }
+
+  .story-accent {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 200px;
+    height: 200px;
+    border: 1px solid rgba(184,151,106,0.25);
+  }
+
+  .story-number {
+    position: absolute;
+    top: 30px;
+    left: -20px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 300;
+    color: rgba(184,151,106,0.12);
+    line-height: 1;
+  }
+
+  .story-text .section-eyebrow { text-align: left; }
+  .story-text .section-title { text-align: left; font-size: 42px; }
+  .story-text .section-title em { color: var(--gold-light); }
+
+  .story-text p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--stone);
+    margin-top: 24px;
+    font-weight: 300;
+  }
+
+  .story-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 44px;
+    padding-top: 44px;
+    border-top: 1px solid rgba(200,191,176,0.2);
+  }
+
+  .story-stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .story-stat-label {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--taupe);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  /* ── BESTSELLERS / HAIRCARE ROW ── */
+  .haircare-section { background: var(--blush); }
+
+  .scroll-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .haircare-card {
+    background: var(--warm-white);
+    padding: 32px;
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .haircare-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(44,36,32,0.1);
+  }
+
+  .haircare-visual {
+    flex-shrink: 0;
+    width: 90px;
+    height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .haircare-info { flex: 1; }
+
+  .haircare-brand {
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+    font-weight: 400;
+  }
+
+  .haircare-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--espresso);
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+
+  .haircare-desc {
+    font-size: 12px;
+    color: var(--taupe);
+    line-height: 1.6;
+    margin-bottom: 14px;
+    font-weight: 300;
+  }
+
+  .haircare-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .haircare-price {
+    font-size: 17px;
+    color: var(--espresso);
+    font-weight: 400;
+  }
+
+  .mini-add {
+    background: var(--espresso);
+    color: var(--gold-light);
+    border: none;
+    padding: 9px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 400;
+    transition: background 0.3s;
+  }
+
+  .mini-add:hover { background: var(--mink); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    background: var(--cream);
+    padding: 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter::before {
+    content: '"';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 300px;
+    color: rgba(184,151,106,0.06);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .newsletter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--espresso);
+    margin-bottom: 16px;
+    position: relative;
+  }
+
+  .newsletter-sub {
+    font-size: 14px;
+    color: var(--taupe);
+    margin-bottom: 40px;
+    font-weight: 300;
+    position: relative;
+  }
+
+  .newsletter-form {
+    display: flex;
+    max-width: 480px;
+    margin: 0 auto;
+    gap: 0;
+    position: relative;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    padding: 18px 24px;
+    border: 1px solid var(--stone);
+    border-right: none;
+    background: white;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px;
+    color: var(--espresso);
+    outline: none;
+    transition: border-color 0.3s;
+    font-weight: 300;
+  }
+
+  .newsletter-input:focus { border-color: var(--mink); }
+  .newsletter-input::placeholder { color: var(--stone); }
+
+  .newsletter-btn {
+    background: var(--espresso);
+    color: var(--gold-light);
+    border: none;
+    padding: 18px 32px;
+    font-family: 'Jost', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 400;
+    transition: background 0.3s;
+  }
+
+  .newsletter-btn:hover { background: var(--charcoal); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--charcoal);
+    color: var(--stone);
+    padding: 80px 80px 40px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand .logo-name { color: var(--cream); font-size: 28px; }
+  .footer-brand .logo-tagline { color: var(--taupe); }
+
+  .footer-tagline {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--taupe);
+    margin-top: 20px;
+    margin-bottom: 28px;
+    font-weight: 300;
+    max-width: 260px;
+  }
+
+  .social-row {
+    display: flex;
+    gap: 12px;
+  }
+
+  .social-btn {
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(200,191,176,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--taupe);
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 14px;
+  }
+
+  .social-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .footer-col h4 {
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+    margin-bottom: 24px;
+    font-weight: 400;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul li a {
+    text-decoration: none;
+    font-size: 13px;
+    color: var(--taupe);
+    font-weight: 300;
+    transition: color 0.3s;
+  }
+
+  .footer-col ul li a:hover { color: var(--gold-light); }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(200,191,176,0.15);
+    padding-top: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--taupe);
+  }
+
+  .footer-bottom a { color: var(--taupe); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--gold-light); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-18px); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Tab content */
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* Stars */
+  .stars { color: var(--gold); font-size: 11px; letter-spacing: 2px; margin-bottom: 8px; }
+
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement">
+  ✦ Complimentary Shipping on Orders Over $75 &nbsp;·&nbsp; New Arrivals: Summer Edit Now Live &nbsp;·&nbsp; 15% Off First Order with Code BBBEAUTY ✦
+</div>
+
+<!-- NAVIGATION -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="#fragrances">Fragrances</a></li>
+    <li><a href="#haircare">Haircare</a></li>
+    <li><a href="#gifts">Gift Sets</a></li>
+    <li><a href="#story">Our Story</a></li>
+  </ul>
+
+  <!-- LOGO -->
+  <a href="#" class="logo-wrap">
+    <!-- SVG Logo -->
+    <svg class="logo-svg" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Outer ring -->
+      <circle cx="26" cy="26" r="24.5" stroke="#B8976A" stroke-width="0.75"/>
+      <!-- Inner ring -->
+      <circle cx="26" cy="26" r="20" stroke="#B8976A" stroke-width="0.4" stroke-dasharray="2 3"/>
+      <!-- Decorative leaf left -->
+      <path d="M10 26 Q16 18 22 26 Q16 34 10 26Z" fill="#C8BFB0" opacity="0.6"/>
+      <!-- Decorative leaf right -->
+      <path d="M42 26 Q36 18 30 26 Q36 34 42 26Z" fill="#C8BFB0" opacity="0.6"/>
+      <!-- B glyph left -->
+      <text x="14" y="31.5" font-family="Cormorant Garamond, Georgia, serif" font-size="16" font-weight="500" fill="#2C2420" text-anchor="middle">B</text>
+      <!-- Divider -->
+      <line x1="26" y1="13" x2="26" y2="39" stroke="#B8976A" stroke-width="0.6"/>
+      <!-- B glyph right -->
+      <text x="38" y="31.5" font-family="Cormorant Garamond, Georgia, serif" font-size="16" font-weight="500" fill="#2C2420" text-anchor="middle">B</text>
+      <!-- Top diamond -->
+      <polygon points="26,6 28,8.5 26,11 24,8.5" fill="#B8976A"/>
+      <!-- Bottom diamond -->
+      <polygon points="26,41 28,43.5 26,46 24,43.5" fill="#B8976A"/>
+    </svg>
+    <div class="logo-text">
+      <span class="logo-name">B&B Beauty</span>
+      <span class="logo-tagline">Fragrance &amp; Haircare</span>
+    </div>
+  </a>
+
+  <div class="nav-actions">
+    <button class="nav-icon-btn" aria-label="Search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/>
+      </svg>
+    </button>
+    <button class="nav-icon-btn" aria-label="Account">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    </button>
+    <button class="nav-icon-btn" aria-label="Cart" style="position:relative">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+      </svg>
+      <span class="cart-badge">3</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow">The Art of Scent &amp; Care</p>
+    <h1>Where Beauty<br><em>Begins</em></h1>
+    <p class="hero-desc">Discover curated fragrances and premium haircare crafted for those who believe beauty is a ritual, not a routine.</p>
+    <div class="hero-btns">
+      <a href="#fragrances" class="btn-primary">Shop Fragrances</a>
+      <a href="#haircare" class="btn-outline">Explore Haircare</a>
+    </div>
+  </div>
+
+  <!-- Floating SVG Bottles -->
+  <div class="hero-floats">
+    <div class="float-circle"></div>
+    <div class="float-circle"></div>
+    <div class="float-circle"></div>
+  </div>
+
+  <div class="hero-product-shelf">
+    <!-- Tall Perfume Bottle -->
+    <div class="hero-bottle" style="animation-delay:0s">
+      <svg width="70" height="160" viewBox="0 0 70 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="28" y="2" width="14" height="12" rx="2" fill="#B8976A"/>
+        <rect x="31" y="12" width="8" height="10" fill="#9E9183"/>
+        <rect x="15" y="22" width="40" height="128" rx="8" fill="url(#bottleGrad1)"/>
+        <rect x="15" y="22" width="40" height="128" rx="8" stroke="#B8976A" stroke-width="0.8"/>
+        <rect x="18" y="28" width="34" height="3" rx="1" fill="#D4B896" opacity="0.6"/>
+        <rect x="20" y="80" width="30" height="30" rx="2" fill="rgba(255,255,255,0.12)"/>
+        <text x="35" y="91" font-family="Cormorant Garamond, serif" font-size="7" fill="#D4B896" text-anchor="middle" font-style="italic">B&B</text>
+        <text x="35" y="101" font-family="Cormorant Garamond, serif" font-size="5" fill="#B8976A" text-anchor="middle">BEAUTY</text>
+        <rect x="18" y="140" width="34" height="3" rx="1" fill="#D4B896" opacity="0.4"/>
+        <defs>
+          <linearGradient id="bottleGrad1" x1="15" y1="0" x2="55" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#3A3530"/>
+            <stop offset="40%" stop-color="#6B5F52"/>
+            <stop offset="100%" stop-color="#9E9183"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="hero-bottle-label" style="color:var(--mink);font-size:9px">Noir Ambré</span>
+    </div>
+
+    <!-- Round Bottle -->
+    <div class="hero-bottle" style="animation-delay:-2s; margin-bottom: 30px;">
+      <svg width="100" height="130" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="38" y="2" width="24" height="10" rx="2" fill="#C8BFB0"/>
+        <rect x="43" y="10" width="14" height="14" fill="#B8976A"/>
+        <ellipse cx="50" cy="85" rx="36" ry="40" fill="url(#bottleGrad2)"/>
+        <ellipse cx="50" cy="85" rx="36" ry="40" stroke="#C8BFB0" stroke-width="0.8"/>
+        <ellipse cx="50" cy="85" rx="28" ry="32" stroke="rgba(255,255,255,0.15)" stroke-width="0.6"/>
+        <text x="50" y="81" font-family="Cormorant Garamond, serif" font-size="9" fill="#F5F0E8" text-anchor="middle" font-style="italic">Soleil</text>
+        <text x="50" y="93" font-family="Cormorant Garamond, serif" font-size="6" fill="#D4B896" text-anchor="middle">B&B BEAUTY</text>
+        <defs>
+          <linearGradient id="bottleGrad2" x1="14" y1="45" x2="86" y2="125" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#E8DDD4"/>
+            <stop offset="50%" stop-color="#C8BFB0"/>
+            <stop offset="100%" stop-color="#9E9183"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="hero-bottle-label" style="color:var(--taupe);font-size:9px">Soleil Doré</span>
+    </div>
+
+    <!-- Slim Square Bottle -->
+    <div class="hero-bottle" style="animation-delay:-4s">
+      <svg width="60" height="150" viewBox="0 0 60 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="22" y="2" width="16" height="8" rx="2" fill="#A8AC98"/>
+        <rect x="24" y="8" width="12" height="12" rx="1" fill="#9E9183"/>
+        <rect x="8" y="20" width="44" height="120" rx="4" fill="url(#bottleGrad3)"/>
+        <rect x="8" y="20" width="44" height="120" rx="4" stroke="#A8AC98" stroke-width="0.8"/>
+        <rect x="12" y="26" width="36" height="1" fill="rgba(255,255,255,0.4)"/>
+        <rect x="12" y="29" width="36" height="0.5" fill="rgba(255,255,255,0.2)"/>
+        <rect x="14" y="75" width="32" height="28" rx="2" fill="rgba(255,255,255,0.1)"/>
+        <text x="30" y="86" font-family="Cormorant Garamond, serif" font-size="6" fill="#F5F0E8" text-anchor="middle" font-style="italic">Vert</text>
+        <text x="30" y="96" font-family="Cormorant Garamond, serif" font-size="5" fill="#C8BFB0" text-anchor="middle">BEAUTY</text>
+        <defs>
+          <linearGradient id="bottleGrad3" x1="8" y1="0" x2="52" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#7A8070"/>
+            <stop offset="50%" stop-color="#A8AC98"/>
+            <stop offset="100%" stop-color="#C8BFB0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span class="hero-bottle-label" style="color:var(--sage);font-size:9px">Vert Frais</span>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <!-- Doubled for seamless loop -->
+    <span class="marquee-item">Eau de Parfum <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Luxury Haircare <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Men's Collection <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Women's Collection <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Gift Sets <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Free Shipping $75+ <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Cruelty Free <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Sustainably Sourced <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Eau de Parfum <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Luxury Haircare <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Men's Collection <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Women's Collection <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Gift Sets <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Free Shipping $75+ <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Cruelty Free <span class="marquee-dot"></span></span>
+    <span class="marquee-item">Sustainably Sourced <span class="marquee-dot"></span></span>
+  </div>
+</div>
+
+<!-- CATEGORY SPLIT -->
+<section class="category-split">
+  <div class="category-card category-men">
+    <div class="category-bg"></div>
+    <div class="cat-bottles">
+      <!-- Men's bottles SVG -->
+      <svg width="70" height="180" viewBox="0 0 70 180" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.7">
+        <rect x="26" y="2" width="18" height="14" rx="3" fill="#6B5F52"/>
+        <rect x="29" y="14" width="12" height="12" rx="1" fill="#B8976A"/>
+        <rect x="10" y="26" width="50" height="145" rx="6" fill="url(#menBottle1)"/>
+        <rect x="13" y="32" width="44" height="2" rx="1" fill="rgba(255,255,255,0.2)"/>
+        <rect x="16" y="90" width="38" height="35" rx="2" fill="rgba(255,255,255,0.07)"/>
+        <text x="35" y="104" font-family="Cormorant Garamond, serif" font-size="8" fill="#D4B896" text-anchor="middle" font-style="italic">Homme</text>
+        <text x="35" y="116" font-family="Cormorant Garamond, serif" font-size="5.5" fill="#9E9183" text-anchor="middle">B&B BEAUTY</text>
+        <rect x="13" y="158" width="44" height="2" rx="1" fill="rgba(255,255,255,0.15)"/>
+        <defs>
+          <linearGradient id="menBottle1" x1="10" y1="0" x2="60" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2C2420"/>
+            <stop offset="50%" stop-color="#3A3530"/>
+            <stop offset="100%" stop-color="#6B5F52"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg width="50" height="140" viewBox="0 0 50 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.6">
+        <rect x="18" y="2" width="14" height="10" rx="2" fill="#9E9183"/>
+        <rect x="20" y="10" width="10" height="10" fill="#B8976A"/>
+        <rect x="5" y="20" width="40" height="112" rx="5" fill="url(#menBottle2)"/>
+        <text x="25" y="80" font-family="Cormorant Garamond, serif" font-size="7" fill="#C8BFB0" text-anchor="middle">NOIR</text>
+        <defs>
+          <linearGradient id="menBottle2" x1="5" y1="0" x2="45" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#3A3530"/>
+            <stop offset="100%" stop-color="#6B5F52"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="category-overlay">
+      <p class="cat-tag">✦ For Him</p>
+      <h2 class="cat-title">Men's<br>Collection</h2>
+      <a href="#fragrances" class="cat-cta">
+        Explore Now
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+          <path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <div class="category-card category-women">
+    <div class="category-bg"></div>
+    <div class="cat-bottles">
+      <svg width="100" height="160" viewBox="0 0 100 160" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.75">
+        <rect x="38" y="2" width="24" height="10" rx="3" fill="#B8976A"/>
+        <rect x="43" y="10" width="14" height="12" rx="1" fill="#D4B896"/>
+        <ellipse cx="50" cy="100" rx="38" ry="48" fill="url(#womenBottle1)"/>
+        <ellipse cx="50" cy="100" rx="38" ry="48" stroke="#D4B896" stroke-width="0.8"/>
+        <ellipse cx="50" cy="100" rx="28" ry="36" stroke="rgba(255,255,255,0.2)" stroke-width="0.6"/>
+        <text x="50" y="96" font-family="Cormorant Garamond, serif" font-size="10" fill="#2C2420" text-anchor="middle" font-style="italic">Femme</text>
+        <text x="50" y="109" font-family="Cormorant Garamond, serif" font-size="6" fill="#6B5F52" text-anchor="middle">B&B BEAUTY</text>
+        <defs>
+          <linearGradient id="womenBottle1" x1="12" y1="52" x2="88" y2="148" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FAF8F4"/>
+            <stop offset="50%" stop-color="#E8DDD4"/>
+            <stop offset="100%" stop-color="#C8BFB0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <svg width="55" height="170" viewBox="0 0 55 170" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:0.6">
+        <rect x="20" y="2" width="15" height="10" rx="2" fill="#C8BFB0"/>
+        <rect x="22" y="10" width="11" height="10" fill="#D4B896"/>
+        <rect x="5" y="20" width="45" height="140" rx="10" fill="url(#womenBottle2)"/>
+        <text x="27.5" y="95" font-family="Cormorant Garamond, serif" font-size="7" fill="#6B5F52" text-anchor="middle" font-style="italic">Rose</text>
+        <defs>
+          <linearGradient id="womenBottle2" x1="5" y1="0" x2="50" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#F5F0E8"/>
+            <stop offset="100%" stop-color="#D4B896"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <div class="category-overlay">
+      <p class="cat-tag">✦ For Her</p>
+      <h2 class="cat-title">Women's<br>Collection</h2>
+      <a href="#fragrances" class="cat-cta">
+        Explore Now
+        <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+          <path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="feature-strip">
+  <div class="feature-item">
+    <svg class="feature-icon" viewBox="0 0 44 44" fill="none">
+      <path d="M22 4l3.09 9.26L35 13l-7.27 5.27L30.18 28 22 22.72 13.82 28l3.45-9.73L10 13l9.91.26z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+    </svg>
+    <h4 class="feature-title">Premium Quality</h4>
+    <p class="feature-desc">Every product crafted with the finest global ingredients and rigorous quality standards.</p>
+  </div>
+  <div class="feature-item">
+    <svg class="feature-icon" viewBox="0 0 44 44" fill="none">
+      <path d="M22 39s-16-9-16-20a10 10 0 0120 0 10 10 0 0120 0C46 30 22 39 22 39z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+    </svg>
+    <h4 class="feature-title">Cruelty Free</h4>
+    <p class="feature-desc">All B&B Beauty products are 100% cruelty-free and never tested on animals.</p>
+  </div>
+  <div class="feature-item">
+    <svg class="feature-icon" viewBox="0 0 44 44" fill="none">
+      <rect x="8" y="18" width="28" height="20" rx="2" stroke="currentColor" stroke-width="1.2"/>
+      <path d="M15 18v-4a7 7 0 0114 0v4" stroke="currentColor" stroke-width="1.2"/>
+      <circle cx="22" cy="28" r="3" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    <h4 class="feature-title">Secure Checkout</h4>
+    <p class="feature-desc">Shop with confidence. SSL encrypted, secure payment processing on every order.</p>
+  </div>
+  <div class="feature-item">
+    <svg class="feature-icon" viewBox="0 0 44 44" fill="none">
+      <path d="M6 22l8 8 24-18" stroke="currentColor" stroke-width="1.5"/>
+      <circle cx="22" cy="22" r="18" stroke="currentColor" stroke-width="1.2"/>
+    </svg>
+    <h4 class="feature-title">Free Returns</h4>
+    <p class="feature-desc">Not satisfied? Return within 30 days, no questions asked. Your satisfaction guaranteed.</p>
+  </div>
+</div>
+
+<!-- FRAGRANCES -->
+<section class="section products-section" id="fragrances">
+  <div class="section-header">
+    <p class="section-eyebrow">✦ Signature Scents</p>
+    <h2 class="section-title">The Fragrance <em>Edit</em></h2>
+    <p class="section-sub">Live in-stock fragrance inventory sourced from ScentsWorld dropshipping catalog.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this, 'all')">All</button>
+    <button class="tab-btn" onclick="switchTab(this, 'men')">For Him</button>
+    <button class="tab-btn" onclick="switchTab(this, 'women')">For Her</button>
+    <button class="tab-btn" onclick="switchTab(this, 'unisex')">Unisex</button>
+  </div>
+
+  <div class="product-grid">
+
+    <div class="product-card" data-category="women">
+      <div class="product-img-wrap">
+        <span class="product-badge">In Stock</span>
+        <div class="product-visual" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;font-family:'Cormorant Garamond',serif;font-size:26px;color:#6B5F52;">
+          <div>
+            <div style="font-size:16px;letter-spacing:2px;margin-bottom:10px;">YSL</div>
+            <div>Libre Berry Crush</div>
+          </div>
+        </div>
+        <div class="product-actions">
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-brand">YSL</p>
+        <div class="stars">★★★★★</div>
+        <h3 class="product-name">Libre Berry Crush</h3>
+        <p class="product-sub">0.33oz Eau de Parfum Spray for Women</p>
+        <p class="product-price">$30.81</p>
+      </div>
+    </div>
+    
+
+    <div class="product-card" data-category="men">
+      <div class="product-img-wrap">
+        <span class="product-badge">In Stock</span>
+        <div class="product-visual" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;font-family:'Cormorant Garamond',serif;font-size:26px;color:#6B5F52;">
+          <div>
+            <div style="font-size:16px;letter-spacing:2px;margin-bottom:10px;">Armani</div>
+            <div>Emporio Stronger With You Powerfully</div>
+          </div>
+        </div>
+        <div class="product-actions">
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-brand">Armani</p>
+        <div class="stars">★★★★★</div>
+        <h3 class="product-name">Emporio Stronger With You Powerfully</h3>
+        <p class="product-sub">0.33oz Eau de Parfum Spray for Men</p>
+        <p class="product-price">$29.55</p>
+      </div>
+    </div>
+    
+
+    <div class="product-card" data-category="men">
+      <div class="product-img-wrap">
+        <span class="product-badge">In Stock</span>
+        <div class="product-visual" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;font-family:'Cormorant Garamond',serif;font-size:26px;color:#6B5F52;">
+          <div>
+            <div style="font-size:16px;letter-spacing:2px;margin-bottom:10px;">Preferred Stock</div>
+            <div>Cologne Spray</div>
+          </div>
+        </div>
+        <div class="product-actions">
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-brand">Preferred Stock</p>
+        <div class="stars">★★★★★</div>
+        <h3 class="product-name">Cologne Spray</h3>
+        <p class="product-sub">2.5oz Cologne Spray for Men</p>
+        <p class="product-price">$23.25</p>
+      </div>
+    </div>
+    
+
+    <div class="product-card" data-category="men">
+      <div class="product-img-wrap">
+        <span class="product-badge">In Stock</span>
+        <div class="product-visual" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;font-family:'Cormorant Garamond',serif;font-size:26px;color:#6B5F52;">
+          <div>
+            <div style="font-size:16px;letter-spacing:2px;margin-bottom:10px;">Givenchy</div>
+            <div>Pi Eau de Toilette</div>
+          </div>
+        </div>
+        <div class="product-actions">
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-brand">Givenchy</p>
+        <div class="stars">★★★★★</div>
+        <h3 class="product-name">Pi Eau de Toilette</h3>
+        <p class="product-sub">3.3oz Spray for Men</p>
+        <p class="product-price">$49.08</p>
+      </div>
+    </div>
+    
+
+    <div class="product-card" data-category="women">
+      <div class="product-img-wrap">
+        <span class="product-badge">In Stock</span>
+        <div class="product-visual" style="display:flex;align-items:center;justify-content:center;text-align:center;padding:20px;font-family:'Cormorant Garamond',serif;font-size:26px;color:#6B5F52;">
+          <div>
+            <div style="font-size:16px;letter-spacing:2px;margin-bottom:10px;">Elizabeth Arden</div>
+            <div>Blue Grass Cream Deodorant</div>
+          </div>
+        </div>
+        <div class="product-actions">
+          <button class="add-btn">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-info">
+        <p class="product-brand">Elizabeth Arden</p>
+        <div class="stars">★★★★★</div>
+        <h3 class="product-name">Blue Grass Cream Deodorant</h3>
+        <p class="product-sub">1.5oz Cream Deodorant</p>
+        <p class="product-price">$12.86</p>
+      </div>
+    </div>
+    
+</div>
+</section>
+
+<!-- BRAND STORY -->
+<section class="story-section" id="story">
+  <div class="story-visual">
+    <div class="story-frame">
+      <span class="story-number">B</span>
+      <!-- Decorative fragrance illustration -->
+      <svg width="200" height="260" viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Main bottle -->
+        <rect x="60" y="40" width="80" height="180" rx="12" fill="url(#storyBottle)"/>
+        <rect x="60" y="40" width="80" height="180" rx="12" stroke="rgba(184,151,106,0.4)" stroke-width="1"/>
+        <rect x="64" y="46" width="72" height="3" rx="1" fill="rgba(212,184,150,0.5)"/>
+        <!-- Label -->
+        <rect x="70" y="110" width="60" height="70" rx="4" fill="rgba(255,255,255,0.1)"/>
+        <rect x="70" y="110" width="60" height="70" rx="4" stroke="rgba(184,151,106,0.3)"/>
+        <text x="100" y="135" font-family="Cormorant Garamond, serif" font-size="13" fill="#D4B896" text-anchor="middle" font-style="italic">B&B</text>
+        <text x="100" y="150" font-family="Cormorant Garamond, serif" font-size="13" fill="#D4B896" text-anchor="middle" font-style="italic">Beauty</text>
+        <text x="100" y="165" font-family="Cormorant Garamond, serif" font-size="7" fill="#9E9183" text-anchor="middle">PARFUM</text>
+        <!-- Cap -->
+        <rect x="72" y="16" width="56" height="26" rx="6" fill="#B8976A"/>
+        <rect x="76" y="20" width="48" height="18" rx="4" fill="url(#capGrad)"/>
+        <!-- Spray mist lines -->
+        <path d="M140 30 Q155 24 165 18" stroke="rgba(184,151,106,0.3)" stroke-width="0.8" stroke-dasharray="2 3"/>
+        <path d="M140 38 Q158 36 170 30" stroke="rgba(184,151,106,0.25)" stroke-width="0.8" stroke-dasharray="2 3"/>
+        <path d="M140 46 Q156 48 166 44" stroke="rgba(184,151,106,0.2)" stroke-width="0.8" stroke-dasharray="2 3"/>
+        <defs>
+          <linearGradient id="storyBottle" x1="60" y1="0" x2="140" y2="0" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#2C2420"/>
+            <stop offset="40%" stop-color="#4A3D34"/>
+            <stop offset="100%" stop-color="#6B5F52"/>
+          </linearGradient>
+          <linearGradient id="capGrad" x1="76" y1="20" x2="124" y2="38" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#D4B896"/>
+            <stop offset="100%" stop-color="#B8976A"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="story-accent"></div>
+    </div>
+  </div>
+
+  <div class="story-text">
+    <p class="section-eyebrow">✦ Our Story</p>
+    <h2 class="section-title">Beauty is a <em>ritual,</em><br>not a routine</h2>
+    <p>B&B Beauty was born from a simple belief: that everyone deserves to feel extraordinary every single day. Founded in 2018, we set out to curate the world's finest fragrances and haircare — products that transform your morning ritual into a moment of pure luxury.</p>
+    <p style="margin-top:16px">We source from the most celebrated perfumers in Grasse and the finest botanical labs across the globe. Every bottle, every formula, is chosen with uncompromising attention to quality, sustainability, and above all, the emotion it creates.</p>
+
+    <div class="story-stats">
+      <div>
+        <div class="story-stat-num">200+</div>
+        <div class="story-stat-label">Curated Products</div>
+      </div>
+      <div>
+        <div class="story-stat-num">50k+</div>
+        <div class="story-stat-label">Happy Clients</div>
+      </div>
+      <div>
+        <div class="story-stat-num">7yr</div>
+        <div class="story-stat-label">Of Excellence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HAIRCARE -->
+<section class="section haircare-section" id="haircare">
+  <div class="section-header">
+    <p class="section-eyebrow">✦ Premium Haircare</p>
+    <h2 class="section-title">Hair that <em>Speaks</em></h2>
+    <p class="section-sub">Salon-quality formulas for every hair type, from root to tip.</p>
+  </div>
+
+  <div class="scroll-row">
+
+    <!-- Haircare 1 -->
+    <div class="haircare-card">
+      <div class="haircare-visual">
+        <svg width="70" height="110" viewBox="0 0 70 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="0" width="30" height="108" rx="15" fill="url(#hg1)"/>
+          <rect x="20" y="0" width="30" height="108" rx="15" stroke="#C8BFB0" stroke-width="0.8"/>
+          <text x="35" y="52" font-family="Cormorant Garamond, serif" font-size="7" fill="#F5F0E8" text-anchor="middle" transform="rotate(-90 35 52)">SHAMPOO</text>
+          <defs><linearGradient id="hg1" x1="20" y1="0" x2="50" y2="108" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#E8DDD4"/><stop offset="100%" stop-color="#C8BFB0"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="haircare-info">
+        <p class="haircare-brand">B&B Haircare</p>
+        <h3 class="haircare-name">Silk Revival Shampoo</h3>
+        <p class="haircare-desc">Argan oil &amp; keratin complex. Restores shine and smoothness to dull, damaged hair.</p>
+        <div class="haircare-footer">
+          <span class="haircare-price">$42.00</span>
+          <button class="mini-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Haircare 2 -->
+    <div class="haircare-card">
+      <div class="haircare-visual">
+        <svg width="80" height="100" viewBox="0 0 80 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="15" width="60" height="82" rx="8" fill="url(#hg2)"/>
+          <rect x="10" y="15" width="60" height="82" rx="8" stroke="#B8976A" stroke-width="0.8"/>
+          <rect x="22" y="2" width="36" height="14" rx="4" fill="#9E9183"/>
+          <text x="40" y="60" font-family="Cormorant Garamond, serif" font-size="7" fill="#F5F0E8" text-anchor="middle">CONDITIONER</text>
+          <defs><linearGradient id="hg2" x1="10" y1="15" x2="70" y2="97" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#6B5F52"/><stop offset="100%" stop-color="#3A3530"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="haircare-info">
+        <p class="haircare-brand">B&B Haircare</p>
+        <h3 class="haircare-name">Deep Hydra Conditioner</h3>
+        <p class="haircare-desc">Intense moisture treatment with shea butter and hyaluronic acid for all hair types.</p>
+        <div class="haircare-footer">
+          <span class="haircare-price">$48.00</span>
+          <button class="mini-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Haircare 3 -->
+    <div class="haircare-card">
+      <div class="haircare-visual">
+        <svg width="65" height="105" viewBox="0 0 65 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="8" y="10" width="49" height="92" rx="10" fill="url(#hg3)"/>
+          <rect x="8" y="10" width="49" height="92" rx="10" stroke="#A8AC98" stroke-width="0.8"/>
+          <rect x="20" y="0" width="25" height="12" rx="3" fill="#A8AC98"/>
+          <text x="32.5" y="60" font-family="Cormorant Garamond, serif" font-size="6.5" fill="#F5F0E8" text-anchor="middle">HAIR OIL</text>
+          <defs><linearGradient id="hg3" x1="8" y1="10" x2="57" y2="102" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#A8AC98"/><stop offset="100%" stop-color="#6B7060"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="haircare-info">
+        <p class="haircare-brand">B&B Haircare</p>
+        <h3 class="haircare-name">Lumière Hair Oil</h3>
+        <p class="haircare-desc">Lightweight Moroccan argan &amp; rosehip blend. Frizz-free, mirror-shine finish.</p>
+        <div class="haircare-footer">
+          <span class="haircare-price">$56.00</span>
+          <button class="mini-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Haircare 4 -->
+    <div class="haircare-card">
+      <div class="haircare-visual">
+        <svg width="75" height="100" viewBox="0 0 75 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="37.5" cy="68" rx="32" ry="30" fill="url(#hg4)"/>
+          <ellipse cx="37.5" cy="68" rx="32" ry="30" stroke="#D4B896" stroke-width="0.8"/>
+          <rect x="24" y="4" width="27" height="16" rx="3" fill="#C8BFB0"/>
+          <rect x="27" y="18" width="21" height="22" rx="0" fill="#D4B896"/>
+          <text x="37.5" y="72" font-family="Cormorant Garamond, serif" font-size="7" fill="#2C2420" text-anchor="middle">MASK</text>
+          <defs><linearGradient id="hg4" x1="5" y1="38" x2="70" y2="98" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#F5F0E8"/><stop offset="100%" stop-color="#D4B896"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="haircare-info">
+        <p class="haircare-brand">B&B Haircare</p>
+        <h3 class="haircare-name">Gold Repair Mask</h3>
+        <p class="haircare-desc">Weekly ritual mask with 24k gold peptides. Strengthens and revitalises every strand.</p>
+        <div class="haircare-footer">
+          <span class="haircare-price">$68.00</span>
+          <button class="mini-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Haircare 5 -->
+    <div class="haircare-card">
+      <div class="haircare-visual">
+        <svg width="60" height="108" viewBox="0 0 60 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="5" y="8" width="50" height="98" rx="6" fill="url(#hg5)"/>
+          <rect x="5" y="8" width="50" height="98" rx="6" stroke="#9E9183" stroke-width="0.8"/>
+          <rect x="15" y="0" width="30" height="10" rx="2" fill="#9E9183"/>
+          <text x="30" y="60" font-family="Cormorant Garamond, serif" font-size="7" fill="#D4B896" text-anchor="middle">SERUM</text>
+          <defs><linearGradient id="hg5" x1="5" y1="0" x2="55" y2="106" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#2C2420"/><stop offset="100%" stop-color="#6B5F52"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="haircare-info">
+        <p class="haircare-brand">B&B Haircare</p>
+        <h3 class="haircare-name">Satin Scalp Serum</h3>
+        <p class="haircare-desc">Biotin &amp; caffeine scalp treatment. Promotes thickness, reduces breakage overnight.</p>
+        <div class="haircare-footer">
+          <span class="haircare-price">$62.00</span>
+          <button class="mini-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Haircare 6 -->
+    <div class="haircare-card">
+      <div class="haircare-visual">
+        <svg width="72" height="105" viewBox="0 0 72 105" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="10" width="60" height="92" rx="8" fill="url(#hg6)"/>
+          <rect x="6" y="10" width="60" height="92" rx="8" stroke="#A8AC98" stroke-width="0.8"/>
+          <rect x="18" y="0" width="36" height="12" rx="3" fill="#A8AC98"/>
+          <text x="36" y="60" font-family="Cormorant Garamond, serif" font-size="7" fill="#F5F0E8" text-anchor="middle">SPRAY</text>
+          <defs><linearGradient id="hg6" x1="6" y1="10" x2="66" y2="102" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#8A8E7E"/><stop offset="100%" stop-color="#A8AC98"/></linearGradient></defs>
+        </svg>
+      </div>
+      <div class="haircare-info">
+        <p class="haircare-brand">B&B Haircare</p>
+        <h3 class="haircare-name">Heat Shield Mist</h3>
+        <p class="haircare-desc">Thermal protection up to 450°F. Silk protein formula leaves hair glossy and protected.</p>
+        <div class="haircare-footer">
+          <span class="haircare-price">$38.00</span>
+          <button class="mini-add">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter" id="gifts">
+  <h2 class="newsletter-title">Join the B&B Circle</h2>
+  <p class="newsletter-sub">Be first to discover new arrivals, exclusive offers, and beauty rituals curated just for you.</p>
+  <div class="newsletter-form">
+    <input type="email" class="newsletter-input" placeholder="Your email address">
+    <button class="newsletter-btn">Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo-wrap" style="margin-bottom:0">
+        <svg width="40" height="40" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="26" cy="26" r="24.5" stroke="#B8976A" stroke-width="0.75"/>
+          <circle cx="26" cy="26" r="20" stroke="#B8976A" stroke-width="0.4" stroke-dasharray="2 3"/>
+          <path d="M10 26 Q16 18 22 26 Q16 34 10 26Z" fill="#C8BFB0" opacity="0.5"/>
+          <path d="M42 26 Q36 18 30 26 Q36 34 42 26Z" fill="#C8BFB0" opacity="0.5"/>
+          <text x="14" y="31.5" font-family="Cormorant Garamond, Georgia, serif" font-size="16" font-weight="500" fill="#F5F0E8" text-anchor="middle">B</text>
+          <line x1="26" y1="13" x2="26" y2="39" stroke="#B8976A" stroke-width="0.6"/>
+          <text x="38" y="31.5" font-family="Cormorant Garamond, Georgia, serif" font-size="16" font-weight="500" fill="#F5F0E8" text-anchor="middle">B</text>
+          <polygon points="26,6 28,8.5 26,11 24,8.5" fill="#B8976A"/>
+          <polygon points="26,41 28,43.5 26,46 24,43.5" fill="#B8976A"/>
+        </svg>
+        <div class="logo-text">
+          <span class="logo-name" style="color:var(--cream)">B&B Beauty</span>
+          <span class="logo-tagline">Fragrance &amp; Haircare</span>
+        </div>
+      </a>
+      <p class="footer-tagline">Elevating your daily ritual with the world's finest fragrances and premium haircare since 2018.</p>
+      <div class="social-row">
+        <a class="social-btn" href="#" aria-label="Instagram">IG</a>
+        <a class="social-btn" href="#" aria-label="Pinterest">PT</a>
+        <a class="social-btn" href="#" aria-label="TikTok">TK</a>
+        <a class="social-btn" href="#" aria-label="Facebook">FB</a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Women's Fragrances</a></li>
+        <li><a href="#">Men's Fragrances</a></li>
+        <li><a href="#">Unisex Scents</a></li>
+        <li><a href="#">Haircare</a></li>
+        <li><a href="#">Gift Sets</a></li>
+        <li><a href="#">New Arrivals</a></li>
+        <li><a href="#">Sale</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Fragrance Guide</a></li>
+        <li><a href="#">Shipping Info</a></li>
+        <li><a href="#">Returns & Exchanges</a></li>
+        <li><a href="#">Track Your Order</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>About</h4>
+      <ul>
+        <li><a href="#">Our Story</a></li>
+        <li><a href="#">Sustainability</a></li>
+        <li><a href="#">Cruelty Free Pledge</a></li>
+        <li><a href="#">Press & Media</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Wholesale</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2026 B&B Beauty. All rights reserved.</span>
+    <div style="display:flex;gap:28px">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Settings</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchTab(btn, category) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const cards = document.querySelectorAll('.product-card');
+    cards.forEach(card => {
+      const cat = card.getAttribute('data-category');
+      if (category === 'all' || cat === category) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Add to cart feedback
+  document.querySelectorAll('.add-btn, .mini-add').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const orig = btn.textContent;
+      btn.textContent = 'Added ✓';
+      btn.style.background = '#A8AC98';
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.style.background = '';
+      }, 1800);
+    });
+  });
+</script>
+
+</body>
+</html>
